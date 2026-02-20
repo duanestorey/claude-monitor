@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		015537738C89C7EA1C92A858 /* UsageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EFDFD094FB431DDA743D21 /* UsageViewModel.swift */; };
+		0442841E87C31E9E9E2F9503 /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3932283AA251CF1013D96E /* MenuBarLabel.swift */; };
+		39544E057151E255F01B7FFB /* UsageBarsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D3192C3014A15F908C449D /* UsageBarsSection.swift */; };
+		4A6712799E0240C4E9B5DBD6 /* DailyActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AADB05AC41FCB1842AC31B /* DailyActivityChart.swift */; };
+		5252FF7B25B31845C9E05F35 /* ClaudeUsageWidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620B54B84850ABEF494AF60E /* ClaudeUsageWidgetApp.swift */; };
+		5F60FD4AF1AB20D2CB6B2F85 /* ErrorBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80645B8F5EE71D04E8D0375D /* ErrorBannerView.swift */; };
+		653125FA1B192218606E1DB1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851CE9763FBC3BADC6CA3B1 /* SettingsView.swift */; };
+		8CDE3BEE88347E036C4F8A77 /* StatsCacheReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */; };
+		A9828185378C4B618D6603EC /* ModelUsageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */; };
+		BC237FFB445E0F53E58DE5E1 /* UsageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F888013380304D0F25BCE2 /* UsageBarView.swift */; };
+		C4859E8B7B0985F72833373D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27DDB30FA9BC1B45DF3A02C /* KeychainService.swift */; };
+		C4AEBD368C744AAEB63D16D5 /* AccountInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BF952F20BE45572266823 /* AccountInfoSection.swift */; };
+		C718ED55BAB76901C14BBD33 /* AnthropicAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B5411AC3DCA491B49F5C3 /* AnthropicAPIClient.swift */; };
+		D13838A7B24FE36756F74CAA /* StatsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B34E4B1DDA7E65A68CB7A2 /* StatsCache.swift */; };
+		D2FF36ADFC780EFFFFEFD407 /* UsagePressureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D3E44BFD3E20763BE25DA /* UsagePressureView.swift */; };
+		D81AC895FBFC459E46D358E0 /* KeychainCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913CE971E5D8E0C4483536BB /* KeychainCredentials.swift */; };
+		D99741AF5C73B35AF96F12F9 /* MainPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE1906C36AC2BA090BD809 /* MainPopoverView.swift */; };
+		F937EBE2DE4575F7E45AA615 /* ProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465E7C51584DABEB7E2E4F9 /* ProfileResponse.swift */; };
+		FCECF5D702292F9DAA56FFC8 /* UsageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEC18C2F04131440F46427 /* UsageResponse.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		00D3192C3014A15F908C449D /* UsageBarsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarsSection.swift; sourceTree = "<group>"; };
+		00EFDFD094FB431DDA743D21 /* UsageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageViewModel.swift; sourceTree = "<group>"; };
+		1851CE9763FBC3BADC6CA3B1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2A3932283AA251CF1013D96E /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabel.swift; sourceTree = "<group>"; };
+		3BBF79052C78C14D6D1B8B4B /* ClaudeUsageWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClaudeUsageWidget.entitlements; sourceTree = "<group>"; };
+		3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUsageSection.swift; sourceTree = "<group>"; };
+		58B34E4B1DDA7E65A68CB7A2 /* StatsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCache.swift; sourceTree = "<group>"; };
+		5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCacheReader.swift; sourceTree = "<group>"; };
+		620B54B84850ABEF494AF60E /* ClaudeUsageWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageWidgetApp.swift; sourceTree = "<group>"; };
+		6268D48273DCD1FF3A0EE701 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		682BF952F20BE45572266823 /* AccountInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoSection.swift; sourceTree = "<group>"; };
+		70F888013380304D0F25BCE2 /* UsageBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarView.swift; sourceTree = "<group>"; };
+		80645B8F5EE71D04E8D0375D /* ErrorBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBannerView.swift; sourceTree = "<group>"; };
+		8465E7C51584DABEB7E2E4F9 /* ProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResponse.swift; sourceTree = "<group>"; };
+		849B5411AC3DCA491B49F5C3 /* AnthropicAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthropicAPIClient.swift; sourceTree = "<group>"; };
+		88AADB05AC41FCB1842AC31B /* DailyActivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyActivityChart.swift; sourceTree = "<group>"; };
+		913CE971E5D8E0C4483536BB /* KeychainCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentials.swift; sourceTree = "<group>"; };
+		9E01D3701A2C82768E4A7BDD /* ClaudeUsageWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClaudeUsageWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0D3E44BFD3E20763BE25DA /* UsagePressureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsagePressureView.swift; sourceTree = "<group>"; };
+		C9AE1906C36AC2BA090BD809 /* MainPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPopoverView.swift; sourceTree = "<group>"; };
+		D27DDB30FA9BC1B45DF3A02C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		D3EEC18C2F04131440F46427 /* UsageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageResponse.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1F6324A13965BFFE23E9C132 = {
+			isa = PBXGroup;
+			children = (
+				D2FE89D0F9D6F523F9C0106D /* ClaudeUsageWidget */,
+				FA0BB028800489CAF53C9983 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6A716C2EE1AA35C424116DE1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				913CE971E5D8E0C4483536BB /* KeychainCredentials.swift */,
+				8465E7C51584DABEB7E2E4F9 /* ProfileResponse.swift */,
+				58B34E4B1DDA7E65A68CB7A2 /* StatsCache.swift */,
+				D3EEC18C2F04131440F46427 /* UsageResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A6913A057B4DABC5E05A67C9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				00EFDFD094FB431DDA743D21 /* UsageViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B0BF758DC581C28F9287488C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				682BF952F20BE45572266823 /* AccountInfoSection.swift */,
+				88AADB05AC41FCB1842AC31B /* DailyActivityChart.swift */,
+				80645B8F5EE71D04E8D0375D /* ErrorBannerView.swift */,
+				C9AE1906C36AC2BA090BD809 /* MainPopoverView.swift */,
+				2A3932283AA251CF1013D96E /* MenuBarLabel.swift */,
+				3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */,
+				1851CE9763FBC3BADC6CA3B1 /* SettingsView.swift */,
+				00D3192C3014A15F908C449D /* UsageBarsSection.swift */,
+				70F888013380304D0F25BCE2 /* UsageBarView.swift */,
+				AB0D3E44BFD3E20763BE25DA /* UsagePressureView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D2FE89D0F9D6F523F9C0106D /* ClaudeUsageWidget */ = {
+			isa = PBXGroup;
+			children = (
+				3BBF79052C78C14D6D1B8B4B /* ClaudeUsageWidget.entitlements */,
+				620B54B84850ABEF494AF60E /* ClaudeUsageWidgetApp.swift */,
+				6268D48273DCD1FF3A0EE701 /* Info.plist */,
+				6A716C2EE1AA35C424116DE1 /* Models */,
+				F598AF63D48C1AEB00CC1ACC /* Services */,
+				A6913A057B4DABC5E05A67C9 /* ViewModels */,
+				B0BF758DC581C28F9287488C /* Views */,
+			);
+			path = ClaudeUsageWidget;
+			sourceTree = "<group>";
+		};
+		F598AF63D48C1AEB00CC1ACC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				849B5411AC3DCA491B49F5C3 /* AnthropicAPIClient.swift */,
+				D27DDB30FA9BC1B45DF3A02C /* KeychainService.swift */,
+				5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FA0BB028800489CAF53C9983 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9E01D3701A2C82768E4A7BDD /* ClaudeUsageWidget.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5EFC43076EF4702168F3AF84 /* ClaudeUsageWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB485544E6BF0B3BAA13C463 /* Build configuration list for PBXNativeTarget "ClaudeUsageWidget" */;
+			buildPhases = (
+				7E31BB25CCA0A22EC295B63E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClaudeUsageWidget;
+			packageProductDependencies = (
+			);
+			productName = ClaudeUsageWidget;
+			productReference = 9E01D3701A2C82768E4A7BDD /* ClaudeUsageWidget.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		79E0D1F8E1CDBC4EE8A1F043 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = EFE73463400079117C337BBB /* Build configuration list for PBXProject "ClaudeUsageWidget" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 1F6324A13965BFFE23E9C132;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5EFC43076EF4702168F3AF84 /* ClaudeUsageWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E31BB25CCA0A22EC295B63E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4AEBD368C744AAEB63D16D5 /* AccountInfoSection.swift in Sources */,
+				C718ED55BAB76901C14BBD33 /* AnthropicAPIClient.swift in Sources */,
+				5252FF7B25B31845C9E05F35 /* ClaudeUsageWidgetApp.swift in Sources */,
+				4A6712799E0240C4E9B5DBD6 /* DailyActivityChart.swift in Sources */,
+				5F60FD4AF1AB20D2CB6B2F85 /* ErrorBannerView.swift in Sources */,
+				D81AC895FBFC459E46D358E0 /* KeychainCredentials.swift in Sources */,
+				C4859E8B7B0985F72833373D /* KeychainService.swift in Sources */,
+				D99741AF5C73B35AF96F12F9 /* MainPopoverView.swift in Sources */,
+				0442841E87C31E9E9E2F9503 /* MenuBarLabel.swift in Sources */,
+				A9828185378C4B618D6603EC /* ModelUsageSection.swift in Sources */,
+				F937EBE2DE4575F7E45AA615 /* ProfileResponse.swift in Sources */,
+				653125FA1B192218606E1DB1 /* SettingsView.swift in Sources */,
+				D13838A7B24FE36756F74CAA /* StatsCache.swift in Sources */,
+				8CDE3BEE88347E036C4F8A77 /* StatsCacheReader.swift in Sources */,
+				BC237FFB445E0F53E58DE5E1 /* UsageBarView.swift in Sources */,
+				39544E057151E255F01B7FFB /* UsageBarsSection.swift in Sources */,
+				D2FF36ADFC780EFFFFEFD407 /* UsagePressureView.swift in Sources */,
+				FCECF5D702292F9DAA56FFC8 /* UsageResponse.swift in Sources */,
+				015537738C89C7EA1C92A858 /* UsageViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5F51FD1DB1098624EF6D3FE9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		67F62AA1CAEE6158B2FD8EC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ClaudeUsageWidget/ClaudeUsageWidget.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = ClaudeUsageWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duanestorey.ClaudeUsageWidget;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		A5B297C84DB2BA85EC261B36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ClaudeUsageWidget/ClaudeUsageWidget.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = ClaudeUsageWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duanestorey.ClaudeUsageWidget;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		D90F056B33864ED9AD13421E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB485544E6BF0B3BAA13C463 /* Build configuration list for PBXNativeTarget "ClaudeUsageWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67F62AA1CAEE6158B2FD8EC0 /* Debug */,
+				A5B297C84DB2BA85EC261B36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EFE73463400079117C337BBB /* Build configuration list for PBXProject "ClaudeUsageWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D90F056B33864ED9AD13421E /* Debug */,
+				5F51FD1DB1098624EF6D3FE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 79E0D1F8E1CDBC4EE8A1F043 /* Project object */;
+}

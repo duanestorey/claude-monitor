@@ -1,0 +1,36 @@
+name: ClaudeUsageWidget
+options:
+  bundleIdPrefix: com.duanestorey
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+targets:
+  ClaudeUsageWidget:
+    type: application
+    platform: macOS
+    sources:
+      - ClaudeUsageWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.duanestorey.ClaudeUsageWidget
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        INFOPLIST_FILE: ClaudeUsageWidget/Info.plist
+        CODE_SIGN_ENTITLEMENTS: ClaudeUsageWidget/ClaudeUsageWidget.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_APP_SANDBOX: "NO"
+    info:
+      path: ClaudeUsageWidget/Info.plist
+      properties:
+        LSUIElement: true
+        CFBundleDisplayName: Claude Usage Widget
+        CFBundleName: ClaudeUsageWidget
+        NSHumanReadableCopyright: "Copyright © 2026 Duane Storey. All rights reserved."
+    entitlements:
+      path: ClaudeUsageWidget/ClaudeUsageWidget.entitlements
+      properties:
+        com.apple.security.network.client: true
