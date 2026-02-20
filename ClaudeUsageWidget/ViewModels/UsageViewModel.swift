@@ -129,7 +129,6 @@ final class UsageViewModel: ObservableObject {
 
         // Check notification thresholds
         if let usage = self.usage {
-            NotificationService.shared.clearIfReset(usage: usage)
             NotificationService.shared.checkAndNotify(usage: usage)
         }
 

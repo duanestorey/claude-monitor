@@ -4,8 +4,9 @@ import UserNotifications
 final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationService()
 
-    // Track which notifications we've already sent this cycle to avoid spamming
-    private var sentNotifications: Set<String> = []
+    // Track whether each category's notification has fired.
+    // Once fired, it stays fired until usage drops below the threshold (re-arms).
+    private var hasFired: Set<String> = []
 
     private override init() {
         super.init()
@@ -28,8 +29,7 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                     id: "session",
                     label: "Session",
                     value: session.utilization,
-                    threshold: threshold,
-                    resetKey: session.resetsAt
+                    threshold: threshold
                 )
             }
         }
@@ -42,8 +42,7 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                     id: "week",
                     label: "Weekly",
                     value: week.utilization,
-                    threshold: threshold,
-                    resetKey: week.resetsAt
+                    threshold: threshold
                 )
             }
         }
@@ -57,28 +56,25 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
                     id: "extra",
                     label: "Extra Usage",
                     value: extra.utilization,
-                    threshold: threshold,
-                    resetKey: "extra-\(extra.monthlyLimit)"
+                    threshold: threshold
                 )
             }
         }
     }
 
-    /// Clear sent notifications when a usage period resets
-    func clearIfReset(usage: UsageResponse) {
-        if let session = usage.fiveHour, session.utilization < 5 {
-            sentNotifications = sentNotifications.filter { !$0.hasPrefix("session") }
-        }
-        if let week = usage.sevenDay, week.utilization < 5 {
-            sentNotifications = sentNotifications.filter { !$0.hasPrefix("week") }
-        }
-    }
+    private func checkThreshold(id: String, label: String, value: Double, threshold: Int) {
+        let notifKey = "\(id)-\(threshold)"
 
-    private func checkThreshold(id: String, label: String, value: Double, threshold: Int, resetKey: String) {
-        let notifKey = "\(id)-\(threshold)-\(resetKey)"
-        guard value >= Double(threshold), !sentNotifications.contains(notifKey) else { return }
+        if value < Double(threshold) {
+            // Below threshold: re-arm so it can fire again next time we cross above
+            hasFired.remove(notifKey)
+            return
+        }
 
-        sentNotifications.insert(notifKey)
+        // At or above threshold: fire once, then stay silent until re-armed
+        guard !hasFired.contains(notifKey) else { return }
+
+        hasFired.insert(notifKey)
         send(
             title: "\(label) Usage at \(Int(value))%",
             body: "Your \(label.lowercased()) usage has reached \(threshold)% of the limit."
