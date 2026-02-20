@@ -3,8 +3,8 @@ import SwiftUI
 struct UsagePressureView: View {
     let usage: UsageResponse
 
-    /// Positive = under budget (green, bar goes right)
-    /// Negative = over budget (red, bar goes left)
+    /// Positive = over budget (red, bar goes left) — using more than expected
+    /// Negative = under budget (green, bar goes right) — room to sprint
     private var pressure: Double {
         guard let sevenDay = usage.sevenDay,
               let resetsAt = sevenDay.resetsAtDate else { return 0 }
@@ -17,31 +17,31 @@ struct UsagePressureView: View {
         guard secondsElapsed > 0, secondsRemaining > 0 else { return 0 }
 
         let expectedUtilization = (secondsElapsed / totalSeconds) * 100.0
-        return expectedUtilization - sevenDay.utilization
+        return sevenDay.utilization - expectedUtilization
     }
 
     private var statusLabel: String {
         let p = pressure
         if abs(p) < 3 { return "On Track" }
         if p > 0 {
-            if p > 15 { return "Well Under Budget" }
-            return "Under Budget"
-        } else {
-            if p < -15 { return "Heavy Usage" }
+            if p > 15 { return "Heavy Usage" }
             return "Over Budget"
+        } else {
+            if p < -15 { return "Well Under Budget" }
+            return "Under Budget"
         }
     }
 
     private var statusColor: Color {
         let p = pressure
         if abs(p) < 3 { return .blue }
-        return p > 0 ? .green : .red
+        return p > 0 ? .red : .green
     }
 
     private var statusIcon: String {
         let p = pressure
         if abs(p) < 3 { return "gauge.with.dots.needle.50percent" }
-        return p > 0 ? "gauge.with.dots.needle.33percent" : "gauge.with.dots.needle.67percent"
+        return p > 0 ? "gauge.with.dots.needle.67percent" : "gauge.with.dots.needle.33percent"
     }
 
     var body: some View {
@@ -92,18 +92,18 @@ struct UsagePressureView: View {
                         .offset(x: midX - 0.75)
 
                     // Pressure bar
-                    if clamped >= 0 {
-                        // Green bar going right from center
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(barGradient(for: clamped))
-                            .frame(width: max(2, barWidth), height: 8)
-                            .offset(x: midX)
-                    } else {
-                        // Red bar going left from center
+                    if clamped > 0 {
+                        // Red/orange bar going left from center (over budget)
                         RoundedRectangle(cornerRadius: 2)
                             .fill(barGradient(for: clamped))
                             .frame(width: max(2, barWidth), height: 8)
                             .offset(x: midX - barWidth)
+                    } else if clamped < 0 {
+                        // Green bar going right from center (under budget)
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(barGradient(for: clamped))
+                            .frame(width: max(2, barWidth), height: 8)
+                            .offset(x: midX)
                     }
                 }
             }
@@ -115,7 +115,7 @@ struct UsagePressureView: View {
                     .font(.system(size: 9))
                     .foregroundColor(.red.opacity(0.5))
                 Spacer()
-                let sign = p >= 0 ? "+" : ""
+                let sign = p > 0 ? "+" : ""
                 Text("\(sign)\(Int(p))% vs expected")
                     .font(.system(size: 9))
                     .foregroundColor(.secondary.opacity(0.6))
@@ -128,17 +128,19 @@ struct UsagePressureView: View {
     }
 
     private func barGradient(for value: Double) -> LinearGradient {
-        if value >= 0 {
+        if value > 0 {
+            // Over budget — red/orange
+            let severity = min(value / 30.0, 1.0)
+            let color: Color = severity > 0.5 ? .red : .orange
             return LinearGradient(
-                colors: [.green.opacity(0.7), .green],
+                colors: [color, color.opacity(0.7)],
                 startPoint: .leading,
                 endPoint: .trailing
             )
         } else {
-            let severity = min(abs(value) / 30.0, 1.0)
-            let color: Color = severity > 0.5 ? .red : .orange
+            // Under budget — green
             return LinearGradient(
-                colors: [color, color.opacity(0.7)],
+                colors: [.green.opacity(0.7), .green],
                 startPoint: .leading,
                 endPoint: .trailing
             )
