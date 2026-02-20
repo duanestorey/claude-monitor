@@ -16,6 +16,7 @@
 		653125FA1B192218606E1DB1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851CE9763FBC3BADC6CA3B1 /* SettingsView.swift */; };
 		8CDE3BEE88347E036C4F8A77 /* StatsCacheReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */; };
 		A9828185378C4B618D6603EC /* ModelUsageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */; };
+		B2B67FB502A7BF5143CE747E /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6441AC111707E368C9185C7E /* NotificationService.swift */; };
 		BC237FFB445E0F53E58DE5E1 /* UsageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F888013380304D0F25BCE2 /* UsageBarView.swift */; };
 		C4859E8B7B0985F72833373D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27DDB30FA9BC1B45DF3A02C /* KeychainService.swift */; };
 		C4AEBD368C744AAEB63D16D5 /* AccountInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BF952F20BE45572266823 /* AccountInfoSection.swift */; };
@@ -39,6 +40,7 @@
 		5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCacheReader.swift; sourceTree = "<group>"; };
 		620B54B84850ABEF494AF60E /* ClaudeUsageWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageWidgetApp.swift; sourceTree = "<group>"; };
 		6268D48273DCD1FF3A0EE701 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6441AC111707E368C9185C7E /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		682BF952F20BE45572266823 /* AccountInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoSection.swift; sourceTree = "<group>"; };
 		70F888013380304D0F25BCE2 /* UsageBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarView.swift; sourceTree = "<group>"; };
 		80645B8F5EE71D04E8D0375D /* ErrorBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBannerView.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				849B5411AC3DCA491B49F5C3 /* AnthropicAPIClient.swift */,
 				D27DDB30FA9BC1B45DF3A02C /* KeychainService.swift */,
+				6441AC111707E368C9185C7E /* NotificationService.swift */,
 				5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */,
 			);
 			path = Services;
@@ -193,6 +196,7 @@
 				D99741AF5C73B35AF96F12F9 /* MainPopoverView.swift in Sources */,
 				0442841E87C31E9E9E2F9503 /* MenuBarLabel.swift in Sources */,
 				A9828185378C4B618D6603EC /* ModelUsageSection.swift in Sources */,
+				B2B67FB502A7BF5143CE747E /* NotificationService.swift in Sources */,
 				F937EBE2DE4575F7E45AA615 /* ProfileResponse.swift in Sources */,
 				653125FA1B192218606E1DB1 /* SettingsView.swift in Sources */,
 				D13838A7B24FE36756F74CAA /* StatsCache.swift in Sources */,

@@ -76,6 +76,7 @@ final class UsageViewModel: ObservableObject {
 
         setupStatsWatcher()
         setupWorkspaceObservers()
+        NotificationService.shared.requestPermission()
 
         Task {
             await refresh()
@@ -125,6 +126,12 @@ final class UsageViewModel: ObservableObject {
 
         // Read stats
         self.stats = StatsCacheReader.shared.read()
+
+        // Check notification thresholds
+        if let usage = self.usage {
+            NotificationService.shared.clearIfReset(usage: usage)
+            NotificationService.shared.checkAndNotify(usage: usage)
+        }
 
         if self.error == nil {
             self.lastUpdated = Date()

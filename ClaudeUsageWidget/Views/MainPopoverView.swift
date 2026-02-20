@@ -78,7 +78,7 @@ struct MainPopoverView: View {
             }
         }
         .frame(width: 320)
-        .frame(maxHeight: 520)
+        .frame(minHeight: 580, maxHeight: 700)
         .task {
             await viewModel.refreshIfStale()
         }
@@ -125,6 +125,7 @@ struct MainPopoverView: View {
 
                 // Settings button
                 Button {
+                    NSApp.activate(ignoringOtherApps: true)
                     openWindow(id: "settings")
                 } label: {
                     Image(systemName: "gearshape")
