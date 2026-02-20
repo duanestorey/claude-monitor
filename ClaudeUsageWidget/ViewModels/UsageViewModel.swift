@@ -101,7 +101,7 @@ final class UsageViewModel: ObservableObject {
         // Read keychain
         let credentials: KeychainCredentials
         do {
-            credentials = try KeychainService.shared.readCredentials()
+            credentials = try await KeychainService.shared.readCredentials()
         } catch is KeychainError {
             self.error = .keychainNotFound
             return
@@ -177,7 +177,7 @@ final class UsageViewModel: ObservableObject {
         let values = [
             usage.fiveHour?.utilization,
             usage.sevenDay?.utilization,
-            usage.extraUsage?.utilization
+            usage.extraUsage?.effectiveUtilization
         ].compactMap { $0 }
         return values.max() ?? 0
     }
@@ -188,14 +188,42 @@ final class UsageViewModel: ObservableObject {
         do {
             let result = try await AnthropicAPIClient.shared.fetchUsage(token: token)
             self.usage = result
-            if self.error?.isRetryable == true {
+            if let currentError = self.error, currentError.isRetryable {
                 self.error = nil
             }
         } catch let apiError as APIError {
-            handleAPIError(apiError)
+            switch apiError {
+            case .unauthorized:
+                await retryWithFreshToken()
+            case .rateLimited(let retryAfter):
+                self.error = .rateLimited
+                let divisor = refreshInterval > 0 ? refreshInterval : 1.0
+                self.backoffMultiplier = min(self.backoffMultiplier * 2, maxBackoffInterval / divisor)
+                if let retry = retryAfter {
+                    Task {
+                        try? await Task.sleep(nanoseconds: UInt64(retry * 1_000_000_000))
+                        await self.refresh()
+                    }
+                }
+            default:
+                self.error = .networkError(apiError.localizedDescription)
+            }
         } catch {
             self.error = .networkError(error.localizedDescription)
         }
+    }
+
+    private func retryWithFreshToken() async {
+        do {
+            let creds = try await KeychainService.shared.readCredentials()
+            if !creds.claudeAiOauth.isExpiringSoon {
+                let result = try await AnthropicAPIClient.shared.fetchUsage(token: creds.claudeAiOauth.accessToken)
+                self.usage = result
+                self.error = nil
+                return
+            }
+        } catch {}
+        self.error = .authExpired
     }
 
     private func fetchProfile(token: String) async {
@@ -206,40 +234,6 @@ final class UsageViewModel: ObservableObject {
             // Auth errors handled in fetchUsage
         } catch {
             // Profile errors are non-critical
-        }
-    }
-
-    private func handleAPIError(_ error: APIError) {
-        switch error {
-        case .unauthorized:
-            // Re-read keychain — token may have just been refreshed
-            Task {
-                do {
-                    let creds = try KeychainService.shared.readCredentials()
-                    if !creds.claudeAiOauth.isExpiringSoon {
-                        // Token was refreshed, retry once
-                        let result = try await AnthropicAPIClient.shared.fetchUsage(token: creds.claudeAiOauth.accessToken)
-                        self.usage = result
-                        self.error = nil
-                        return
-                    }
-                } catch {}
-                self.error = .authExpired
-            }
-        case .rateLimited(let retryAfter):
-            self.error = .rateLimited
-            self.backoffMultiplier = min(self.backoffMultiplier * 2, self.maxBackoffInterval / self.refreshInterval)
-            if let retry = retryAfter {
-                // Schedule retry
-                Task {
-                    try? await Task.sleep(nanoseconds: UInt64(retry * 1_000_000_000))
-                    await self.refresh()
-                }
-            }
-        case .networkError:
-            self.error = .networkError(error.localizedDescription)
-        default:
-            self.error = .networkError(error.localizedDescription)
         }
     }
 

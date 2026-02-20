@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		015537738C89C7EA1C92A858 /* UsageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EFDFD094FB431DDA743D21 /* UsageViewModel.swift */; };
-		0442841E87C31E9E9E2F9503 /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3932283AA251CF1013D96E /* MenuBarLabel.swift */; };
 		39544E057151E255F01B7FFB /* UsageBarsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D3192C3014A15F908C449D /* UsageBarsSection.swift */; };
 		4A6712799E0240C4E9B5DBD6 /* DailyActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AADB05AC41FCB1842AC31B /* DailyActivityChart.swift */; };
 		5252FF7B25B31845C9E05F35 /* ClaudeUsageWidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620B54B84850ABEF494AF60E /* ClaudeUsageWidgetApp.swift */; };
@@ -33,7 +32,6 @@
 		00D3192C3014A15F908C449D /* UsageBarsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarsSection.swift; sourceTree = "<group>"; };
 		00EFDFD094FB431DDA743D21 /* UsageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageViewModel.swift; sourceTree = "<group>"; };
 		1851CE9763FBC3BADC6CA3B1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		2A3932283AA251CF1013D96E /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabel.swift; sourceTree = "<group>"; };
 		3BBF79052C78C14D6D1B8B4B /* ClaudeUsageWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClaudeUsageWidget.entitlements; sourceTree = "<group>"; };
 		3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUsageSection.swift; sourceTree = "<group>"; };
 		58B34E4B1DDA7E65A68CB7A2 /* StatsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCache.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 				88AADB05AC41FCB1842AC31B /* DailyActivityChart.swift */,
 				80645B8F5EE71D04E8D0375D /* ErrorBannerView.swift */,
 				C9AE1906C36AC2BA090BD809 /* MainPopoverView.swift */,
-				2A3932283AA251CF1013D96E /* MenuBarLabel.swift */,
 				3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */,
 				1851CE9763FBC3BADC6CA3B1 /* SettingsView.swift */,
 				00D3192C3014A15F908C449D /* UsageBarsSection.swift */,
@@ -194,7 +191,6 @@
 				D81AC895FBFC459E46D358E0 /* KeychainCredentials.swift in Sources */,
 				C4859E8B7B0985F72833373D /* KeychainService.swift in Sources */,
 				D99741AF5C73B35AF96F12F9 /* MainPopoverView.swift in Sources */,
-				0442841E87C31E9E9E2F9503 /* MenuBarLabel.swift in Sources */,
 				A9828185378C4B618D6603EC /* ModelUsageSection.swift in Sources */,
 				B2B67FB502A7BF5143CE747E /* NotificationService.swift in Sources */,
 				F937EBE2DE4575F7E45AA615 /* ProfileResponse.swift in Sources */,

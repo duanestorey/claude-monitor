@@ -21,38 +21,49 @@ final class KeychainService {
     static let shared = KeychainService()
     private init() {}
 
-    func readCredentials() throws -> KeychainCredentials {
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/security")
-        process.arguments = ["find-generic-password", "-s", "Claude Code-credentials", "-w"]
+    func readCredentials() async throws -> KeychainCredentials {
+        try await withCheckedThrowingContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    let process = Process()
+                    process.executableURL = URL(fileURLWithPath: "/usr/bin/security")
+                    process.arguments = ["find-generic-password", "-s", "Claude Code-credentials", "-w"]
 
-        let pipe = Pipe()
-        let errorPipe = Pipe()
-        process.standardOutput = pipe
-        process.standardError = errorPipe
+                    let pipe = Pipe()
+                    let errorPipe = Pipe()
+                    process.standardOutput = pipe
+                    process.standardError = errorPipe
 
-        try process.run()
-        process.waitUntilExit()
+                    try process.run()
+                    process.waitUntilExit()
 
-        guard process.terminationStatus == 0 else {
-            let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-            let errorString = String(data: errorData, encoding: .utf8) ?? "Unknown error"
-            if errorString.contains("could not be found") || process.terminationStatus == 44 {
-                throw KeychainError.notFound
+                    guard process.terminationStatus == 0 else {
+                        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+                        let errorString = String(data: errorData, encoding: .utf8) ?? "Unknown error"
+                        if errorString.contains("could not be found") || process.terminationStatus == 44 {
+                            continuation.resume(throwing: KeychainError.notFound)
+                            return
+                        }
+                        continuation.resume(throwing: KeychainError.commandFailed(errorString.trimmingCharacters(in: .whitespacesAndNewlines)))
+                        return
+                    }
+
+                    let data = pipe.fileHandleForReading.readDataToEndOfFile()
+                    guard !data.isEmpty else {
+                        continuation.resume(throwing: KeychainError.notFound)
+                        return
+                    }
+
+                    let credentials = try JSONDecoder().decode(KeychainCredentials.self, from: data)
+                    continuation.resume(returning: credentials)
+                } catch let error as KeychainError {
+                    continuation.resume(throwing: error)
+                } catch let error as DecodingError {
+                    continuation.resume(throwing: KeychainError.decodingFailed(error.localizedDescription))
+                } catch {
+                    continuation.resume(throwing: KeychainError.commandFailed(error.localizedDescription))
+                }
             }
-            throw KeychainError.commandFailed(errorString.trimmingCharacters(in: .whitespacesAndNewlines))
-        }
-
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        guard !data.isEmpty else {
-            throw KeychainError.notFound
-        }
-
-        do {
-            let credentials = try JSONDecoder().decode(KeychainCredentials.self, from: data)
-            return credentials
-        } catch {
-            throw KeychainError.decodingFailed(error.localizedDescription)
         }
     }
 }

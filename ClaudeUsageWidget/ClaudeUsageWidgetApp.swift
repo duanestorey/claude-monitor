@@ -15,12 +15,7 @@ struct ClaudeUsageWidgetApp: App {
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    let viewModel = UsageViewModel()
-    private var statusItem: NSStatusItem!
-    private let popover = NSPopover()
-
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        // Register defaults so NotificationService reads the same values as @AppStorage
+    private static let _registerDefaults: Void = {
         UserDefaults.standard.register(defaults: [
             "notificationsEnabled": true,
             "notifySessionEnabled": true,
@@ -30,6 +25,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             "notifyExtraEnabled": true,
             "notifyExtraAt": 75,
         ])
+    }()
+
+    let viewModel: UsageViewModel = {
+        _ = AppDelegate._registerDefaults
+        return UsageViewModel()
+    }()
+
+    private var statusItem: NSStatusItem!
+    private let popover = NSPopover()
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return false
+    }
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        // Hide any windows SwiftUI opens automatically — this is a menu-bar-only app
+        for window in NSApp.windows {
+            window.orderOut(nil)
+        }
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
@@ -71,9 +85,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         else if pct > 0 { iconName = "gauge.with.dots.needle.33percent" }
         else { iconName = "gauge.with.dots.needle.0percent" }
 
-        let text = viewModel.menuBarText
+        let attributed = menuBarAttributedText()
 
-        if text.isEmpty {
+        if attributed.length == 0 {
             // Icon only
             button.image = NSImage(systemSymbolName: iconName, accessibilityDescription: "Claude Usage")
             button.attributedTitle = NSAttributedString(string: "")
@@ -82,18 +96,45 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             // Icon + colored text
             button.image = NSImage(systemSymbolName: iconName, accessibilityDescription: "Claude Usage")
             button.imagePosition = .imageLeading
+            button.attributedTitle = attributed
+        }
+    }
 
-            let sessionPct = viewModel.usage?.fiveHour?.utilization ?? 0
-            let color: NSColor
-            if sessionPct >= 90 { color = .systemRed }
-            else if sessionPct >= 70 { color = .systemOrange }
-            else { color = .systemGreen }
+    private func colorForUtilization(_ pct: Double) -> NSColor {
+        if pct >= 90 { return .systemRed }
+        if pct >= 70 { return .systemOrange }
+        return .systemGreen
+    }
 
-            let attrs: [NSAttributedString.Key: Any] = [
-                .font: NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .medium),
-                .foregroundColor: color
-            ]
-            button.attributedTitle = NSAttributedString(string: " \(text)", attributes: attrs)
+    private func menuBarAttributedText() -> NSAttributedString {
+        guard let usage = viewModel.usage else { return NSAttributedString(string: "") }
+        let font = NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .medium)
+
+        switch viewModel.menuBarDisplayMode {
+        case .iconOnly:
+            return NSAttributedString(string: "")
+
+        case .sessionPercent:
+            let pct = usage.fiveHour?.utilization ?? 0
+            let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: colorForUtilization(pct)]
+            return NSAttributedString(string: " \(Int(pct))%", attributes: attrs)
+
+        case .weekPercent:
+            let pct = usage.sevenDay?.utilization ?? 0
+            let attrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: colorForUtilization(pct)]
+            return NSAttributedString(string: " \(Int(pct))%", attributes: attrs)
+
+        case .bothPercents:
+            let sPct = usage.fiveHour?.utilization ?? 0
+            let wPct = usage.sevenDay?.utilization ?? 0
+            let result = NSMutableAttributedString()
+            result.append(NSAttributedString(string: " \(Int(sPct))%",
+                attributes: [.font: font, .foregroundColor: colorForUtilization(sPct)]))
+            result.append(NSAttributedString(string: " · ",
+                attributes: [.font: font, .foregroundColor: NSColor.secondaryLabelColor]))
+            result.append(NSAttributedString(string: "\(Int(wPct))%",
+                attributes: [.font: font, .foregroundColor: colorForUtilization(wPct)]))
+            return result
         }
     }
 

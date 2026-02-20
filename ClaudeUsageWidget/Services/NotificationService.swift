@@ -49,30 +49,35 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
 
         // Extra usage
         if defaults.bool(forKey: "notifyExtraEnabled"),
-           let extra = usage.extraUsage, extra.isEnabled {
+           let extra = usage.extraUsage, extra.enabled {
             let threshold = defaults.integer(forKey: "notifyExtraAt")
             if threshold > 0 {
                 checkThreshold(
                     id: "extra",
                     label: "Extra Usage",
-                    value: extra.utilization,
+                    value: extra.effectiveUtilization,
                     threshold: threshold
                 )
             }
         }
     }
 
+    private let hysteresisMargin: Double = 3.0
+
     private func checkThreshold(id: String, label: String, value: Double, threshold: Int) {
         let notifKey = "\(id)-\(threshold)"
+        let thresholdValue = Double(threshold)
 
-        if value < Double(threshold) {
-            // Below threshold: re-arm so it can fire again next time we cross above
-            hasFired.remove(notifKey)
+        if hasFired.contains(notifKey) {
+            // Only re-arm if usage drops meaningfully below threshold
+            if value < thresholdValue - hysteresisMargin {
+                hasFired.remove(notifKey)
+            }
             return
         }
 
-        // At or above threshold: fire once, then stay silent until re-armed
-        guard !hasFired.contains(notifKey) else { return }
+        // Not yet fired: fire if at or above threshold
+        guard value >= thresholdValue else { return }
 
         hasFired.insert(notifKey)
         send(

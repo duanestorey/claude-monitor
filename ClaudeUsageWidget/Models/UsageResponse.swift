@@ -22,10 +22,10 @@ struct UsageLimit: Codable {
 }
 
 struct ExtraUsage: Codable {
-    let isEnabled: Bool
-    let monthlyLimit: Int
-    let usedCredits: Double
-    let utilization: Double
+    let isEnabled: Bool?
+    let monthlyLimit: Int?
+    let usedCredits: Double?
+    let utilization: Double?
 
     enum CodingKeys: String, CodingKey {
         case isEnabled = "is_enabled"
@@ -34,8 +34,10 @@ struct ExtraUsage: Codable {
         case utilization
     }
 
-    var usedDollars: Double { usedCredits / 100.0 }
-    var limitDollars: Double { Double(monthlyLimit) / 100.0 }
+    var enabled: Bool { isEnabled ?? false }
+    var effectiveUtilization: Double { utilization ?? 0 }
+    var usedDollars: Double { (usedCredits ?? 0) / 100.0 }
+    var limitDollars: Double { Double(monthlyLimit ?? 0) / 100.0 }
 }
 
 struct UsageResponse: Codable {

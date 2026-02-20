@@ -29,10 +29,10 @@ struct UsageBarsSection: View {
                 )
             }
 
-            if let extra = usage.extraUsage, extra.isEnabled {
+            if let extra = usage.extraUsage, extra.enabled {
                 UsageBarView(
                     title: "Extra Usage",
-                    utilization: extra.utilization,
+                    utilization: extra.effectiveUtilization,
                     subtitle: String(format: "$%.2f / $%.2f spent", extra.usedDollars, extra.limitDollars)
                 )
             }

@@ -26,23 +26,31 @@ final class StatsCacheReader {
     func startWatching() {
         stopWatching()
 
-        fileDescriptor = open(filePath, O_EVTONLY)
-        guard fileDescriptor >= 0 else { return }
+        let fd = open(filePath, O_EVTONLY)
+        guard fd >= 0 else { return }
+        fileDescriptor = fd
 
         let source = DispatchSource.makeFileSystemObjectSource(
-            fileDescriptor: fileDescriptor,
+            fileDescriptor: fd,
             eventMask: [.write, .rename, .delete],
             queue: .main
         )
 
         source.setEventHandler { [weak self] in
-            self?.onChange?()
+            guard let self = self else { return }
+            let flags = source.data
+            self.onChange?()
+
+            // File was renamed or deleted (atomic write by Claude Code) — restart watcher
+            if flags.contains(.rename) || flags.contains(.delete) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    self?.startWatching()
+                }
+            }
         }
 
-        source.setCancelHandler { [weak self] in
-            guard let self = self, self.fileDescriptor >= 0 else { return }
-            close(self.fileDescriptor)
-            self.fileDescriptor = -1
+        source.setCancelHandler {
+            close(fd)
         }
 
         source.resume()
@@ -52,5 +60,6 @@ final class StatsCacheReader {
     func stopWatching() {
         dispatchSource?.cancel()
         dispatchSource = nil
+        fileDescriptor = -1
     }
 }
