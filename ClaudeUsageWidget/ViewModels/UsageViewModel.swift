@@ -61,6 +61,8 @@ final class UsageViewModel: ObservableObject {
     // MARK: - Private
 
     private var pollTimer: Timer?
+    private var authRetryTimer: Timer?
+    private let authRetryInterval: TimeInterval = 30 // Check keychain every 30s when auth is expired
     private var backoffMultiplier: Double = 1.0
     private let maxBackoffInterval: TimeInterval = 30 * 60
     private var workspaceObservers: [NSObjectProtocol] = []
@@ -86,6 +88,7 @@ final class UsageViewModel: ObservableObject {
 
     deinit {
         pollTimer?.invalidate()
+        authRetryTimer?.invalidate()
         StatsCacheReader.shared.stopWatching()
         for observer in workspaceObservers {
             NSWorkspace.shared.notificationCenter.removeObserver(observer)
@@ -110,11 +113,18 @@ final class UsageViewModel: ObservableObject {
             return
         }
 
-        // Check token expiry
+        // Check token expiry — if expired, start fast-polling the keychain
         if credentials.claudeAiOauth.isExpiringSoon {
             self.error = .authExpired
+            startAuthRetryTimer()
             return
         }
+
+        // Token is valid — clear any stale auth error and stop fast-polling
+        if self.error == .authExpired {
+            self.error = nil
+        }
+        stopAuthRetryTimer()
 
         let token = credentials.claudeAiOauth.accessToken
 
@@ -188,7 +198,7 @@ final class UsageViewModel: ObservableObject {
         do {
             let result = try await AnthropicAPIClient.shared.fetchUsage(token: token)
             self.usage = result
-            if let currentError = self.error, currentError.isRetryable {
+            if self.error != nil {
                 self.error = nil
             }
         } catch let apiError as APIError {
@@ -235,6 +245,21 @@ final class UsageViewModel: ObservableObject {
         } catch {
             // Profile errors are non-critical
         }
+    }
+
+    private func startAuthRetryTimer() {
+        guard authRetryTimer == nil else { return }
+        authRetryTimer = Timer.scheduledTimer(withTimeInterval: authRetryInterval, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            Task { @MainActor in
+                await self.refresh()
+            }
+        }
+    }
+
+    private func stopAuthRetryTimer() {
+        authRetryTimer?.invalidate()
+        authRetryTimer = nil
     }
 
     private func startTimer() {

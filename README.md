@@ -34,9 +34,11 @@ Each can be toggled independently with a custom threshold.
 
 ## Build & Install
 
+### Option A: Command Line
+
 ```bash
 # Clone the repo
-git clone git@github.com:duanestorey/claude-monitor.git
+git clone https://github.com/duanestorey/claude-monitor.git
 cd claude-monitor
 
 # Install XcodeGen if you don't have it
@@ -55,7 +57,23 @@ cp -R ~/Library/Developer/Xcode/DerivedData/ClaudeUsageWidget-*/Build/Products/R
 open /Applications/ClaudeUsageWidget.app
 ```
 
+### Option B: Xcode GUI
+
+```bash
+# Clone and generate the project
+git clone https://github.com/duanestorey/claude-monitor.git
+cd claude-monitor
+brew install xcodegen
+xcodegen generate
+```
+
+Then open `ClaudeUsageWidget.xcodeproj` in Xcode, select the **ClaudeUsageWidget** scheme, set the build configuration to **Release**, and hit **Cmd+R** to build and run. To install permanently, use **Product > Archive** or copy the built `.app` from Xcode's DerivedData to `/Applications`.
+
+### First Launch
+
 The app appears as a gauge icon in your menu bar with no Dock icon. Click the gauge to open the usage popover. Click anywhere outside to dismiss.
+
+**Important:** You must have logged into [Claude Code](https://docs.anthropic.com/en/docs/claude-code) at least once before launching this app. The app reads your existing OAuth credentials from the macOS Keychain — it does not handle login itself.
 
 ## Settings
 
@@ -89,6 +107,17 @@ Zero third-party dependencies. Pure Swift using SwiftUI, AppKit, Combine, Charts
 | `AnthropicAPIClient` | Async URLSession calls with 401 retry and 429 backoff |
 | `StatsCacheReader` | Watches stats file with `DispatchSource` |
 | `NotificationService` | Fires macOS notifications at configurable thresholds |
+
+## Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| `xcodegen: command not found` | Run `brew install xcodegen` |
+| Build fails with "no scheme" | Run `xcodegen generate` first — the `.xcodeproj` is not checked into the repo |
+| Gauge shows "No Token" | Make sure you've logged into Claude Code at least once (`claude` in your terminal) |
+| Gauge shows "Auth Error" | Your OAuth token may have expired — open Claude Code to refresh it, then relaunch the app |
+| macOS blocks the app | Go to **System Settings > Privacy & Security** and click **Open Anyway** |
+| No Keychain access prompt | The app uses the `security` CLI and does not trigger a Keychain prompt — if it can't read the token, ensure Claude Code's credentials exist in Keychain Access under `Claude Code-credentials` |
 
 ## License
 

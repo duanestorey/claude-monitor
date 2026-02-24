@@ -41,7 +41,8 @@ struct UsageBarsSection: View {
 
     private func resetLabel(_ limit: UsageLimit) -> String {
         guard let date = limit.resetsAtDate else {
-            return "Resets at \(limit.resetsAt)"
+            if let raw = limit.resetsAt { return "Resets at \(raw)" }
+            return "Reset time unknown"
         }
 
         let now = Date()
