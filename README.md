@@ -4,6 +4,8 @@ A native macOS menu bar app that shows your Claude subscription usage limits in 
 
 Built for Claude Max subscribers who want to keep an eye on session limits, weekly quotas, extra usage spending, and daily activity — without switching context.
 
+![Menu bar width](widget.png)
+
 ## What It Shows
 
 - **Weekly Pace Gauge** — are you ahead or behind your expected usage rate for the week? Green means you have room to sprint, red means slow down.
