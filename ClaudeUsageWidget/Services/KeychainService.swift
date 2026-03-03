@@ -8,11 +8,11 @@ enum KeychainError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notFound:
-            return "Claude Code credentials not found in Keychain"
+            return "Claude Code credentials not found in Keychain or credentials file"
         case .decodingFailed(let detail):
-            return "Failed to decode Keychain credentials: \(detail)"
+            return "Failed to decode credentials: \(detail)"
         case .commandFailed(let detail):
-            return "Keychain access failed: \(detail)"
+            return "Credential access failed: \(detail)"
         }
     }
 }
@@ -22,6 +22,17 @@ final class KeychainService {
     private init() {}
 
     func readCredentials() async throws -> KeychainCredentials {
+        // Try ~/.claude/.credentials.json first (avoids keychain -w truncation bugs),
+        // fall back to keychain if the file doesn't exist
+        if let fileCreds = readFromCredentialsFile() {
+            return fileCreds
+        }
+        return try await readFromKeychain()
+    }
+
+    // MARK: - Keychain
+
+    private func readFromKeychain() async throws -> KeychainCredentials {
         try await withCheckedThrowingContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
@@ -65,5 +76,18 @@ final class KeychainService {
                 }
             }
         }
+    }
+
+    // MARK: - Credentials file fallback
+
+    private func readFromCredentialsFile() -> KeychainCredentials? {
+        let home = FileManager.default.homeDirectoryForCurrentUser
+        let credentialsPath = home.appendingPathComponent(".claude/.credentials.json")
+
+        guard let data = try? Data(contentsOf: credentialsPath),
+              let credentials = try? JSONDecoder().decode(KeychainCredentials.self, from: data) else {
+            return nil
+        }
+        return credentials
     }
 }

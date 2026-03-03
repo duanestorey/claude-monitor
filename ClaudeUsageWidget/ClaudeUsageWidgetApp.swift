@@ -10,6 +10,7 @@ struct ClaudeUsageWidgetApp: App {
         }
         .windowResizability(.contentSize)
         .defaultSize(width: 400, height: 500)
+        .defaultPosition(.center)
     }
 }
 

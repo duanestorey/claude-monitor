@@ -86,7 +86,7 @@ struct MainPopoverView: View {
 
     private var footerView: some View {
         VStack(spacing: 6) {
-            // Session/message stats
+            // Session/message stats + version
             if let stats = viewModel.stats {
                 let sessions = stats.totalSessions ?? 0
                 let messages = stats.totalMessages ?? 0
@@ -95,15 +95,22 @@ struct MainPopoverView: View {
                         .font(.system(size: 10))
                         .foregroundColor(.secondary.opacity(0.7))
                     Spacer()
+                    Text("v\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?")")
+                        .font(.system(size: 10))
+                        .foregroundColor(.secondary.opacity(0.5))
                 }
             }
 
             HStack(spacing: 8) {
                 // Last updated
                 if let lastUpdated = viewModel.lastUpdated {
-                    Text("Updated \(lastUpdated.formatted(date: .omitted, time: .shortened))")
-                        .font(.system(size: 10))
-                        .foregroundColor(.secondary.opacity(0.6))
+                    HStack(spacing: 3) {
+                        Image(systemName: "arrow.trianglehead.2.clockwise")
+                            .font(.system(size: 8))
+                        Text("Updated \(lastUpdated.formatted(date: .omitted, time: .shortened))")
+                    }
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary.opacity(0.6))
                 }
 
                 if viewModel.isLoading {
@@ -136,6 +143,10 @@ struct MainPopoverView: View {
 
                 // Quit button
                 Button {
+                    // Close all windows first so nothing keeps the app alive
+                    for window in NSApp.windows {
+                        window.close()
+                    }
                     NSApplication.shared.terminate(nil)
                 } label: {
                     Text("Quit")
