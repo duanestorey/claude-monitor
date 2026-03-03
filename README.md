@@ -4,6 +4,8 @@ A native macOS menu bar app that shows your Claude subscription usage limits in 
 
 Built for Claude Max subscribers who want to keep an eye on session limits, weekly quotas, extra usage spending, and daily activity — without switching context.
 
+**[Changelog](CHANGELOG.md)** · **[Latest Release](https://github.com/duanestorey/claude-monitor/releases/latest)**
+
 ![Menu bar width](widget.png)
 
 ## What It Shows
@@ -32,7 +34,7 @@ Each can be toggled independently with a custom threshold.
 - macOS 13.0+
 - Xcode 15.0+ (with command line tools)
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
-- An active [Claude Code](https://claude.ai/code) session (the app reads your OAuth credentials from the macOS Keychain)
+- An active [Claude Code](https://claude.ai/code) session (the app reads your OAuth credentials from `~/.claude/.credentials.json` or the macOS Keychain)
 
 ## Build & Install
 
@@ -88,7 +90,7 @@ Click the gear icon in the popover footer to open settings:
 
 ## How It Works
 
-The app reads your Claude Code OAuth token from the macOS Keychain (`Claude Code-credentials` entry) and uses it to query two Anthropic API endpoints:
+The app reads your Claude Code OAuth token from `~/.claude/.credentials.json` (preferred) or the macOS Keychain (`Claude Code-credentials` entry) and uses it to query two Anthropic API endpoints:
 
 - `GET /api/oauth/usage` — session and weekly utilization percentages, extra usage credits
 - `GET /api/oauth/profile` — account name, email, plan type
@@ -105,7 +107,7 @@ Zero third-party dependencies. Pure Swift using SwiftUI, AppKit, Combine, Charts
 |-----------|------|
 | `AppDelegate` | Owns `NSStatusItem` + `NSPopover`, updates menu bar icon/text reactively |
 | `UsageViewModel` | Polls API, manages state, handles errors and backoff |
-| `KeychainService` | Reads OAuth token via `/usr/bin/security` CLI |
+| `KeychainService` | Reads OAuth token from credentials file or Keychain |
 | `AnthropicAPIClient` | Async URLSession calls with 401 retry and 429 backoff |
 | `StatsCacheReader` | Watches stats file with `DispatchSource` |
 | `NotificationService` | Fires macOS notifications at configurable thresholds |
@@ -119,7 +121,7 @@ Zero third-party dependencies. Pure Swift using SwiftUI, AppKit, Combine, Charts
 | Gauge shows "No Token" | Make sure you've logged into Claude Code at least once (`claude` in your terminal) |
 | Gauge shows "Auth Error" | Your OAuth token may have expired — open Claude Code to refresh it, then relaunch the app |
 | macOS blocks the app | Go to **System Settings > Privacy & Security** and click **Open Anyway** |
-| No Keychain access prompt | The app uses the `security` CLI and does not trigger a Keychain prompt — if it can't read the token, ensure Claude Code's credentials exist in Keychain Access under `Claude Code-credentials` |
+| No Keychain access prompt | The app reads `~/.claude/.credentials.json` first; if that's missing, it falls back to the Keychain via the `security` CLI. Ensure Claude Code's credentials exist in one of these locations |
 
 ## License
 
