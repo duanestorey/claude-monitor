@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.1
+
+### Bug Fixes
+- **Stale daily activity chart and model usage** — Claude Code stopped updating `~/.claude/stats-cache.json`, so both sections had frozen at April 2026 data. Local stats are now computed directly from the session transcripts in `~/.claude/projects/`, de-duplicated by API message ID, and refreshed via FSEvents
+- **Chart skipped idle days** — the chart now shows the last 7 calendar days (local time), with zero bars on days without activity
+- **Wrong model names** — every Opus model was labelled "Opus 4.6"; names are now derived from the model ID (e.g. "Opus 5.5", "Sonnet 4.5")
+- **Version number reset by XcodeGen** — `project.yml` now sets the bundle version keys so `xcodegen generate` no longer overwrites them with 1.0
+
+### Internal
+- Release builds are universal (Apple Silicon + Intel)
+
 ## 1.1.0
 
 ### New Features

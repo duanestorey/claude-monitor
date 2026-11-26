@@ -2,28 +2,35 @@ import SwiftUI
 
 struct ModelUsageSection: View {
     let modelUsage: [String: ModelTokenUsage]
+    /// Start of the retained transcript window (Claude Code prunes old sessions).
+    let since: Date?
+
+    private var title: String {
+        guard let since = since else { return "Model Usage" }
+        return "Model Usage (since \(since.formatted(.dateTime.month(.abbreviated).day())))"
+    }
 
     private var sortedModels: [(name: String, usage: ModelTokenUsage)] {
         modelUsage.map { (name: $0.key, usage: $0.value) }
-            .sorted { ($0.usage.outputTokens ?? 0) > ($1.usage.outputTokens ?? 0) }
+            .sorted { $0.usage.outputTokens > $1.usage.outputTokens }
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Model Usage")
+            Text(title)
                 .font(.system(size: 11, weight: .medium))
                 .foregroundColor(.secondary)
 
             ForEach(sortedModels, id: \.name) { model in
                 HStack {
-                    Text(shortModelName(model.name))
+                    Text(ModelNameFormatter.displayName(for: model.name))
                         .font(.system(size: 11, weight: .medium, design: .default))
                         .frame(width: 80, alignment: .leading)
 
                     Spacer()
 
-                    let output = model.usage.outputTokens ?? 0
-                    let cache = (model.usage.cacheReadInputTokens ?? 0) + (model.usage.cacheCreationInputTokens ?? 0)
+                    let output = model.usage.outputTokens
+                    let cache = model.usage.cacheReadInputTokens + model.usage.cacheCreationInputTokens
 
                     Text("\(formatTokens(output)) out")
                         .font(.system(size: 10, design: .monospaced))
@@ -38,14 +45,6 @@ struct ModelUsageSection: View {
                 }
             }
         }
-    }
-
-    private func shortModelName(_ name: String) -> String {
-        if name.contains("opus") { return "Opus 4.6" }
-        if name.contains("sonnet") && name.contains("4-5") { return "Sonnet 4.5" }
-        if name.contains("sonnet") { return "Sonnet" }
-        if name.contains("haiku") { return "Haiku 4.5" }
-        return name
     }
 
     private func formatTokens(_ count: Int) -> String {

@@ -5,8 +5,13 @@ import Charts
 struct DailyActivityChart: View {
     let activities: [DailyActivity]
 
+    /// `activities` is zero-filled by calendar day, so the last 7 entries are the last 7 days.
     private var recentActivities: [DailyActivity] {
         Array(activities.suffix(7))
+    }
+
+    private var hasActivity: Bool {
+        recentActivities.contains { $0.messageCount > 0 }
     }
 
     var body: some View {
@@ -15,7 +20,7 @@ struct DailyActivityChart: View {
                 .font(.system(size: 11, weight: .medium))
                 .foregroundColor(.secondary)
 
-            if recentActivities.isEmpty {
+            if !hasActivity {
                 Text("No activity data")
                     .font(.system(size: 10))
                     .foregroundColor(.secondary.opacity(0.7))
@@ -25,7 +30,7 @@ struct DailyActivityChart: View {
                 Chart(recentActivities) { activity in
                     BarMark(
                         x: .value("Date", activity.shortDateLabel),
-                        y: .value("Messages", activity.messageCount ?? 0)
+                        y: .value("Messages", activity.messageCount)
                     )
                     .foregroundStyle(Color.accentColor.gradient)
                     .cornerRadius(2)

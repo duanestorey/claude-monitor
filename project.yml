@@ -15,7 +15,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.duanestorey.ClaudeUsageWidget
-        MARKETING_VERSION: "1.1.0"
+        MARKETING_VERSION: "1.1.1"
         CURRENT_PROJECT_VERSION: "1"
         SWIFT_VERSION: "5.9"
         MACOSX_DEPLOYMENT_TARGET: "13.0"
@@ -31,6 +31,8 @@ targets:
         CFBundleIconName: AppIcon
         CFBundleDisplayName: Claude Usage Widget
         CFBundleName: ClaudeUsageWidget
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         NSHumanReadableCopyright: "Copyright © 2026 Duane Storey. All rights reserved."
     entitlements:
       path: ClaudeUsageWidget/ClaudeUsageWidget.entitlements

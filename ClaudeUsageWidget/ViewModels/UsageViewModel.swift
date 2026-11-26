@@ -38,7 +38,7 @@ final class UsageViewModel: ObservableObject {
 
     @Published var usage: UsageResponse?
     @Published var profile: ProfileResponse?
-    @Published var stats: StatsCache?
+    @Published var stats: LocalUsageStats?
     @Published var error: AppError?
     @Published var lastUpdated: Date?
     @Published var isLoading = false
@@ -89,7 +89,7 @@ final class UsageViewModel: ObservableObject {
     deinit {
         pollTimer?.invalidate()
         authRetryTimer?.invalidate()
-        StatsCacheReader.shared.stopWatching()
+        TranscriptStatsReader.shared.stopWatching()
         for observer in workspaceObservers {
             NSWorkspace.shared.notificationCenter.removeObserver(observer)
         }
@@ -134,8 +134,8 @@ final class UsageViewModel: ObservableObject {
             group.addTask { await self.fetchProfile(token: token) }
         }
 
-        // Read stats
-        self.stats = StatsCacheReader.shared.read()
+        // Rescan local transcripts (cheap — unchanged files are cached)
+        TranscriptStatsReader.shared.scheduleScan()
 
         // Check notification thresholds
         if let usage = self.usage {
@@ -278,12 +278,13 @@ final class UsageViewModel: ObservableObject {
     }
 
     private func setupStatsWatcher() {
-        StatsCacheReader.shared.onChange = { [weak self] in
+        TranscriptStatsReader.shared.onUpdate = { [weak self] stats in
             Task { @MainActor [weak self] in
-                self?.stats = StatsCacheReader.shared.read()
+                self?.stats = stats
             }
         }
-        StatsCacheReader.shared.startWatching()
+        TranscriptStatsReader.shared.startWatching()
+        TranscriptStatsReader.shared.scheduleScan()
     }
 
     private func setupWorkspaceObservers() {

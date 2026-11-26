@@ -29,15 +29,15 @@ The app is an `LSUIElement` (no Dock icon). It uses a manually managed `NSStatus
 ### Data Flow
 
 ```
-Keychain ("Claude Code-credentials")  →  KeychainService  →  OAuth token
-                                                           ↓
+~/.claude/.credentials.json  or  Keychain ("Claude Code-credentials")  →  KeychainService  →  OAuth token
+                                                                                          ↓
 Anthropic API (/oauth/usage, /oauth/profile)  →  AnthropicAPIClient  →  UsageViewModel
                                                                           ↓
-~/.claude/stats-cache.json  →  StatsCacheReader (DispatchSource watch)  →  Views
+~/.claude/projects/**/*.jsonl  →  TranscriptStatsReader (FSEvents watch)  →  Views
 ```
 
-- **KeychainService** shells out to `/usr/bin/security` CLI (avoids sandbox/code-signing issues with Security.framework)
-- **StatsCacheReader** uses `DispatchSource.makeFileSystemObjectSource` for event-driven file watching
+- **KeychainService** reads `~/.claude/.credentials.json` first, then falls back to the Keychain by shelling out to `/usr/bin/security` (avoids sandbox/code-signing issues with Security.framework, and `security -w` truncation of long tokens)
+- **TranscriptStatsReader** builds the daily activity chart, model usage, and session/message totals from Claude Code's session transcripts. It watches `~/.claude/projects` with an FSEvents stream, parses on a background queue, and caches per-file results keyed on mtime + size so only changed transcripts are re-read
 - **UsageViewModel** polls the API on a timer (default 5min), pauses on sleep, resumes on wake
 - **NotificationService** fires macOS notifications when configurable usage thresholds are crossed, tracks sent notifications per reset cycle to avoid spam
 
@@ -48,6 +48,16 @@ Anthropic API (/oauth/usage, /oauth/profile)  →  AnthropicAPIClient  →  Usag
 - **Rate limiting**: exponential backoff up to 30 min, respects `Retry-After` header
 - **Menu bar updates**: `AppDelegate.updateButton()` sets the `NSStatusBarButton`'s image (gauge needle position) and `attributedTitle` (colored percentage text) — this is the only reliable way to get reactive colored text in the menu bar
 - **Settings window**: uses SwiftUI `Window` scene with `@Environment(\.openWindow)` — requires `NSApp.activate(ignoringOtherApps: true)` first for LSUIElement apps
+
+### Local Transcript Stats
+
+- **Do not use `~/.claude/stats-cache.json`** — Claude Code stopped updating it (last write April 2026), which froze the chart and model usage. Transcripts are the source of truth.
+- Each transcript line is a JSON event. `type: "assistant"` lines carry `message.id`, `message.model`, `message.usage` (`input_tokens`, `output_tokens`, `cache_read_input_tokens`, `cache_creation_input_tokens`) and `content` (`tool_use` blocks). One API response is split across several lines sharing `message.id` — **de-duplicate by `message.id`** or tokens get double-counted
+- Messages = user prompts (`type: "user"`, excluding `isMeta` and tool-result lines) + unique assistant responses. Model `<synthetic>` is skipped
+- Subagent transcripts live in `<project>/<session>/subagents/*.jsonl` and are included (they share the parent `sessionId`)
+- Days are bucketed in **local time**; the daily series is zero-filled so the chart always shows the last 7 calendar days
+- Claude Code prunes transcripts (`cleanupPeriodDays`, default 30), so totals cover the retained window — the Model Usage header shows "since <date>"
+- Model display names are derived from the ID by `ModelNameFormatter` (`claude-opus-5-5` → "Opus 5.5"); don't hardcode version names
 
 ### API Details
 

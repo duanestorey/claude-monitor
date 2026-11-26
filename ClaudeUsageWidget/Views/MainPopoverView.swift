@@ -63,7 +63,7 @@ struct MainPopoverView: View {
 
                 // Model usage
                 if let modelUsage = viewModel.stats?.modelUsage, !modelUsage.isEmpty {
-                    ModelUsageSection(modelUsage: modelUsage)
+                    ModelUsageSection(modelUsage: modelUsage, since: viewModel.stats?.earliestActivity)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 10)
 
@@ -88,8 +88,8 @@ struct MainPopoverView: View {
         VStack(spacing: 6) {
             // Session/message stats + version
             if let stats = viewModel.stats {
-                let sessions = stats.totalSessions ?? 0
-                let messages = stats.totalMessages ?? 0
+                let sessions = stats.totalSessions
+                let messages = stats.totalMessages
                 HStack {
                     Text("\(sessions) sessions · \(formatNumber(messages)) messages")
                         .font(.system(size: 10))

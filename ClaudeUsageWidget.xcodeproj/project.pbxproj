@@ -10,10 +10,11 @@
 		015537738C89C7EA1C92A858 /* UsageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EFDFD094FB431DDA743D21 /* UsageViewModel.swift */; };
 		39544E057151E255F01B7FFB /* UsageBarsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D3192C3014A15F908C449D /* UsageBarsSection.swift */; };
 		4A6712799E0240C4E9B5DBD6 /* DailyActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AADB05AC41FCB1842AC31B /* DailyActivityChart.swift */; };
+		4E47B30DE8D4140DB394C55A /* TranscriptStatsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401745593E87A255D121F57 /* TranscriptStatsReader.swift */; };
 		5252FF7B25B31845C9E05F35 /* ClaudeUsageWidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620B54B84850ABEF494AF60E /* ClaudeUsageWidgetApp.swift */; };
 		5F60FD4AF1AB20D2CB6B2F85 /* ErrorBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80645B8F5EE71D04E8D0375D /* ErrorBannerView.swift */; };
 		653125FA1B192218606E1DB1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851CE9763FBC3BADC6CA3B1 /* SettingsView.swift */; };
-		8CDE3BEE88347E036C4F8A77 /* StatsCacheReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */; };
+		7AEF24643E5675D10A36769B /* LocalUsageStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58659C6C9D65B3EB35A30978 /* LocalUsageStats.swift */; };
 		8F9ED90FC13ADADA0779AD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55E1104C0B872EB2007845ED /* Assets.xcassets */; };
 		A9828185378C4B618D6603EC /* ModelUsageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */; };
 		B2B67FB502A7BF5143CE747E /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6441AC111707E368C9185C7E /* NotificationService.swift */; };
@@ -21,7 +22,6 @@
 		C4859E8B7B0985F72833373D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27DDB30FA9BC1B45DF3A02C /* KeychainService.swift */; };
 		C4AEBD368C744AAEB63D16D5 /* AccountInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BF952F20BE45572266823 /* AccountInfoSection.swift */; };
 		C718ED55BAB76901C14BBD33 /* AnthropicAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B5411AC3DCA491B49F5C3 /* AnthropicAPIClient.swift */; };
-		D13838A7B24FE36756F74CAA /* StatsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B34E4B1DDA7E65A68CB7A2 /* StatsCache.swift */; };
 		D2FF36ADFC780EFFFFEFD407 /* UsagePressureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D3E44BFD3E20763BE25DA /* UsagePressureView.swift */; };
 		D81AC895FBFC459E46D358E0 /* KeychainCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913CE971E5D8E0C4483536BB /* KeychainCredentials.swift */; };
 		D99741AF5C73B35AF96F12F9 /* MainPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AE1906C36AC2BA090BD809 /* MainPopoverView.swift */; };
@@ -36,10 +36,10 @@
 		3BBF79052C78C14D6D1B8B4B /* ClaudeUsageWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClaudeUsageWidget.entitlements; sourceTree = "<group>"; };
 		3CB6760E613ACAF1A8F7442E /* ModelUsageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUsageSection.swift; sourceTree = "<group>"; };
 		55E1104C0B872EB2007845ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		58B34E4B1DDA7E65A68CB7A2 /* StatsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCache.swift; sourceTree = "<group>"; };
-		5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCacheReader.swift; sourceTree = "<group>"; };
+		58659C6C9D65B3EB35A30978 /* LocalUsageStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsageStats.swift; sourceTree = "<group>"; };
 		620B54B84850ABEF494AF60E /* ClaudeUsageWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageWidgetApp.swift; sourceTree = "<group>"; };
 		6268D48273DCD1FF3A0EE701 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6401745593E87A255D121F57 /* TranscriptStatsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptStatsReader.swift; sourceTree = "<group>"; };
 		6441AC111707E368C9185C7E /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		682BF952F20BE45572266823 /* AccountInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoSection.swift; sourceTree = "<group>"; };
 		70F888013380304D0F25BCE2 /* UsageBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarView.swift; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				913CE971E5D8E0C4483536BB /* KeychainCredentials.swift */,
+				58659C6C9D65B3EB35A30978 /* LocalUsageStats.swift */,
 				8465E7C51584DABEB7E2E4F9 /* ProfileResponse.swift */,
-				58B34E4B1DDA7E65A68CB7A2 /* StatsCache.swift */,
 				D3EEC18C2F04131440F46427 /* UsageResponse.swift */,
 			);
 			path = Models;
@@ -120,7 +120,7 @@
 				849B5411AC3DCA491B49F5C3 /* AnthropicAPIClient.swift */,
 				D27DDB30FA9BC1B45DF3A02C /* KeychainService.swift */,
 				6441AC111707E368C9185C7E /* NotificationService.swift */,
-				5B7DA063D9190CEE47B8E97D /* StatsCacheReader.swift */,
+				6401745593E87A255D121F57 /* TranscriptStatsReader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -205,13 +205,13 @@
 				5F60FD4AF1AB20D2CB6B2F85 /* ErrorBannerView.swift in Sources */,
 				D81AC895FBFC459E46D358E0 /* KeychainCredentials.swift in Sources */,
 				C4859E8B7B0985F72833373D /* KeychainService.swift in Sources */,
+				7AEF24643E5675D10A36769B /* LocalUsageStats.swift in Sources */,
 				D99741AF5C73B35AF96F12F9 /* MainPopoverView.swift in Sources */,
 				A9828185378C4B618D6603EC /* ModelUsageSection.swift in Sources */,
 				B2B67FB502A7BF5143CE747E /* NotificationService.swift in Sources */,
 				F937EBE2DE4575F7E45AA615 /* ProfileResponse.swift in Sources */,
 				653125FA1B192218606E1DB1 /* SettingsView.swift in Sources */,
-				D13838A7B24FE36756F74CAA /* StatsCache.swift in Sources */,
-				8CDE3BEE88347E036C4F8A77 /* StatsCacheReader.swift in Sources */,
+				4E47B30DE8D4140DB394C55A /* TranscriptStatsReader.swift in Sources */,
 				BC237FFB445E0F53E58DE5E1 /* UsageBarView.swift in Sources */,
 				39544E057151E255F01B7FFB /* UsageBarsSection.swift in Sources */,
 				D2FF36ADFC780EFFFFEFD407 /* UsagePressureView.swift in Sources */,
@@ -293,7 +293,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.duanestorey.ClaudeUsageWidget;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.9;
@@ -314,7 +314,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.duanestorey.ClaudeUsageWidget;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.9;
